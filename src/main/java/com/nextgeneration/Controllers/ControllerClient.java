@@ -1,0 +1,66 @@
+package com.nextgeneration.Controllers;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.nextgeneration.Entites.Client;
+import com.nextgeneration.Services.ClientService;
+
+@RestController
+@RequestMapping("/clients")
+public class ControllerClient {
+	
+	@Autowired
+    ClientService clientService;
+    Client client;
+
+    
+    @GetMapping("/")
+    public Collection<Client> getClients() {
+    	Collection<Client> clients = new ArrayList<>();
+    	for(Client c : clientService.getAllClient()) {
+    		clients.add(c);
+    	}
+        return clients;
+    }
+    
+    @GetMapping("/{id}")
+    public Client getClient(@PathVariable("id") final int id ) {
+        return clientService.getClientById(id);
+    }
+    
+    @PostMapping("/")
+    public Client createClient(@RequestBody Client client) {
+    	try{
+    		return clientService.saveClient(client);
+    	}catch(Exception e) {
+    		return null;
+    	}
+    	
+    }
+    
+    @DeleteMapping("/{id}")
+    public void deleteClient(@PathVariable("id") final int id ) {
+        clientService.deleteClientById(id);
+    }
+    
+    @PutMapping("/{id}")
+    public Client updateClient(@PathVariable("id") final int id, @RequestBody Client client) {
+    	try{
+    		return clientService.updateClient(id, client);
+    	}catch(Exception e) {
+    		return null;
+    	}
+    }
+
+}
