@@ -9,17 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.springframework.stereotype.Controller;
-
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Data
 @Entity
-public class Client {
+public class Client /*extends Auditable<String>*/ {
 	
 
     @Id

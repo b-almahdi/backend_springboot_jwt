@@ -1,11 +1,11 @@
 package com.nextgeneration.Repositories;
 
-import com.nextgeneration.Entites.Facture;
-
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.nextgeneration.Entites.Facture;
+
 @Repository
-public interface FactureRepository extends CrudRepository<Facture, Integer> {
+public interface FactureRepository extends JpaRepository<Facture, Integer> {
 
 }

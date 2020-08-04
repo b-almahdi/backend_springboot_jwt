@@ -38,31 +38,37 @@ public class ControllerClient {
     }
     
     @GetMapping("/{id}")
-    public Client getClient(@PathVariable("id") final int id ) {
-        return clientService.getClientById(id);
+    public ResponseEntity getClient(@PathVariable("id") final int id ) {
+        return responseEntity.setMessage(clientService.getClientById(id),200);
     }
     
     @PostMapping("/")
-    public Client createClient(@RequestBody Client client) {
+    public ResponseEntity createClient(@RequestBody Client client) {
     	try{
-    		return clientService.saveClient(client);
+    		responseEntity = new ResponseEntity();
+    		return responseEntity.setMessage(clientService.saveClient(client),200);
     	}catch(Exception e) {
-    		return null;
+    		return responseEntity.setErrorMessage("Invalid save", 403);
     	}
     	
     }
     
     @DeleteMapping("/{id}")
-    public void deleteClient(@PathVariable("id") final int id ) {
-        clientService.deleteClientById(id);
+    public ResponseEntity deleteClient(@PathVariable("id") final int id ) {
+        try{
+        	clientService.deleteClientById(id);
+        	return responseEntity.setMessage("delete successful!",200);
+        }catch(Exception e) {
+        	return responseEntity.setErrorMessage("delete unsuccessful!",403);
+        }
     }
     
     @PutMapping("/{id}")
-    public Client updateClient(@PathVariable("id") final int id, @RequestBody Client client) {
+    public ResponseEntity updateClient(@PathVariable("id") final int id, @RequestBody Client client) {
     	try{
-    		return clientService.updateClient(id, client);
+    		return responseEntity.setMessage(clientService.updateClient(id, client),200);
     	}catch(Exception e) {
-    		return null;
+        	return responseEntity.setErrorMessage("update unsuccessful!",403);
     	}
     }
 

@@ -1,11 +1,11 @@
 package com.nextgeneration.Repositories;
 
-import com.nextgeneration.Entites.Livraison;
-
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.nextgeneration.Entites.Livraison;
+
 @Repository
-public interface LivraisonRepository extends CrudRepository<Livraison, Integer> {
+public interface LivraisonRepository extends JpaRepository<Livraison, Integer> {
 
 }

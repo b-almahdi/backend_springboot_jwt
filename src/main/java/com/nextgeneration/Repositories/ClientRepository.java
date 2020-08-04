@@ -1,12 +1,11 @@
 package com.nextgeneration.Repositories;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import com.nextgeneration.Entites.Client;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.CrossOrigin;
-
 @Repository
-public interface ClientRepository extends CrudRepository<Client, Integer> {
+public interface ClientRepository extends JpaRepository<Client, Integer> {
 
 }
