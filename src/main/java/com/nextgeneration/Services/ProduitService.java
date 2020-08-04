@@ -1,5 +1,6 @@
 package com.nextgeneration.Services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,18 @@ public class ProduitService {
 	
 	public Produit updateProduit(int id,Produit produit) {
 		Produit produit1 = produitRepository.findById(id).get();
-		produit1.setNomProduit(produit.getNomProduit());
+		produit1.setNom(produit.getNom());
 		produit1.setPrix(produit.getPrix());
+		produit1.setType(produit.getType());
 		produit1.setQuantite(produit.getQuantite());
 		return produitRepository.save(produit1);
+	}
+
+	public Produit getProduitByNom(String nom) {
+		return produitRepository.findByNom(nom);
+	}
+
+	public Iterable<Produit> getProduitByType(String type) {
+		return produitRepository.findByType(type);
 	}
 }

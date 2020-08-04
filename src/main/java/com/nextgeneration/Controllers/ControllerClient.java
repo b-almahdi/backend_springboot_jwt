@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nextgeneration.Entites.Client;
+import com.nextgeneration.Entites.ResponseEntity;
 import com.nextgeneration.Services.ClientService;
 
 @RestController
@@ -23,15 +24,17 @@ public class ControllerClient {
 	@Autowired
     ClientService clientService;
     Client client;
+    ResponseEntity responseEntity;
 
     
     @GetMapping("/")
-    public Collection<Client> getClients() {
+    public ResponseEntity getClients() {
+    	responseEntity = new ResponseEntity();
     	Collection<Client> clients = new ArrayList<>();
     	for(Client c : clientService.getAllClient()) {
     		clients.add(c);
     	}
-        return clients;
+    	return responseEntity.setMessage(clients, 200);
     }
     
     @GetMapping("/{id}")

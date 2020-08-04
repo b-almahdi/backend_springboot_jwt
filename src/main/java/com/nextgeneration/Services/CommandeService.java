@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nextgeneration.Entites.Commande;
+import com.nextgeneration.Entites.Produit;
 import com.nextgeneration.Repositories.CommandeRepository;
 
 @Service
@@ -13,9 +14,24 @@ public class CommandeService {
 	
 	@Autowired
     private CommandeRepository commandeRepository;
+	boolean exist;
 	
 	public Commande saveCommande(Commande commande) {
-		return commandeRepository.save(commande);
+		try {
+			exist = true;
+			commande.getProduits().forEach((produit, quantite) -> {
+				if(!(quantite <= produit.getQuantite())) {
+					exist = false;
+				}
+			});		
+			if(exist) {				
+				return commandeRepository.save(commande);
+			}else {
+				throw new Exception("Quantite incompatible");
+			}
+		}catch(Exception e) {
+			return null;
+		}
 	}
 	
 	public void deleteCommandeById(int id) {

@@ -33,7 +33,6 @@ public class FactureService {
 	
 	public void updateFacture(int id,Facture facture) {
 		Facture facture1 = factureRepository.findById(id).get();
-		facture1.setDateFacture(facture.getDateFacture());
 		facture1.setMontant(facture.getMontant());
 		factureRepository.save(facture1);
 	}

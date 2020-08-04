@@ -8,9 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import lombok.Data;
 
@@ -25,12 +25,12 @@ public class Commande {
 	private Date dateCommande;
     @ManyToOne
     private Client client;
-    @ManyToMany
-    private List<Produit> produits;
     @OneToMany
-    private List<Facture> factures;
-    @OneToMany
-    private List<Livraison> livraisons;
+    private List<CommandeProduit> produits;
+    @OneToOne
+    private Facture facture;
+    @OneToOne
+    private Livraison livraison;
   
 	
 }

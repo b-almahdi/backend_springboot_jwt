@@ -1,5 +1,7 @@
 package com.nextgeneration.Controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nextgeneration.Entites.Client;
 import com.nextgeneration.Entites.Produit;
 import com.nextgeneration.Services.ProduitService;
 
@@ -31,6 +32,16 @@ public class ControllerProduit {
     @GetMapping("/{id}")
     public Produit getProduit(@PathVariable("id") final int id ) {
         return produitService.getProduitById(id);
+    }
+    
+    @GetMapping("/name/{nom}")
+    public Produit getProduitByNom(@PathVariable("nom") final String nom ) {
+        return produitService.getProduitByNom(nom);
+    }
+    
+    @GetMapping("/type/{type}")
+    public Iterable<Produit> getProduitByType(@PathVariable("type") final String type ) {
+        return produitService.getProduitByType(type);
     }
     
     @PostMapping("")

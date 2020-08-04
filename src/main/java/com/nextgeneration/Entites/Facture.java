@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.Data;
 
@@ -17,10 +17,8 @@ public class Facture {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
     @Column
-	private String dateFacture;
-    @Column
 	private double montant;
-    @ManyToOne
+    @OneToOne
     private Commande commande;
     
 }

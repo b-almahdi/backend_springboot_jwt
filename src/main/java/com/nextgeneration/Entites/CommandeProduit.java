@@ -1,32 +1,24 @@
 package com.nextgeneration.Entites;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 import lombok.Data;
 
 @Data
 @Entity
-public class Produit {
+public class CommandeProduit {
 	
-    @Id
+	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Long id;
+	@OneToOne
+	private Produit produit;
     @Column
-	private String nom;
-    @Column
-	private int quantite;
-    @Column
-	private double prix;
-    @Column
-	private String type;
-    @ManyToMany
-    private List<Commande> commandes;
-    
+	private Integer quantite;
+
 }
