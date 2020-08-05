@@ -9,7 +9,7 @@ import com.nextgeneration.dtos.CommandeLivraisonDTO;
 public class LivraisonCommandeService {
 
 	public Object generateLivraisonForCommande(CommandeLivraisonDTO commandeLivraisonDTO) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 	
