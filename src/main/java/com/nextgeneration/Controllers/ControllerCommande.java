@@ -32,6 +32,16 @@ public class ControllerCommande {
     	return commandeService.getAllCommande();
     }
     
+    @GetMapping("/{id}/produits")
+    public ResponseEntity getProduitsCommande(@PathVariable("id") final int id ) {
+    	responseEntity = new ResponseEntity();
+    	try{
+    		return responseEntity.setMessage(commandeService.getAllProduitsByCommande(id),200);
+    	}catch(Exception e) {
+    		return responseEntity.setMessage("unsuccessful return!",403);
+    	}
+    }
+    
     @GetMapping("/{id}")
     public Commande getCommande(@PathVariable("id") final int id ) {
         return commandeService.getCommandeById(id);
@@ -43,7 +53,7 @@ public class ControllerCommande {
     	try{
     		return responseEntity.setMessage(commandeService.saveCommande(commande,id),200);
     	}catch(Exception e) {
-    		return null;
+    		return responseEntity.setMessage("create unsuccessful!",403);
     	}
     	
     }
@@ -59,11 +69,11 @@ public class ControllerCommande {
     }
     
     @PutMapping("/{id}")
-    public Commande updateCommande(@PathVariable("id") final int id, @RequestBody Commande commande) {
+    public ResponseEntity updateCommande(@PathVariable("id") final int id, @RequestBody Commande commande) {
     	try{
-    		return commandeService.updateCommande(id, commande);
+    		return responseEntity.setMessage(commandeService.updateCommande(id, commande),200);
     	}catch(Exception e) {
-    		return null;
+    		return responseEntity.setErrorMessage("update unsuccessful!", 403);
     	}
     }
 

@@ -1,6 +1,5 @@
 package com.nextgeneration.Services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,4 +47,5 @@ public class ProduitService {
 	public Iterable<Produit> getProduitByType(String type) {
 		return produitRepository.findByType(type);
 	}
+
 }

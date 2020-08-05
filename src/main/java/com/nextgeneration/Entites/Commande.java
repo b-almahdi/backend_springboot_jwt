@@ -3,6 +3,7 @@ package com.nextgeneration.Entites;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class Commande {
 	private Date dateCommande;
     @ManyToOne
     private Client client;
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<CommandeProduit> produits;
     @OneToOne
     private Facture facture;

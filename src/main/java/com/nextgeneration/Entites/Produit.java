@@ -26,7 +26,5 @@ public class Produit {
 	private double prix;
     @Column
 	private String type;
-    @ManyToMany
-    private List<Commande> commandes;
     
 }

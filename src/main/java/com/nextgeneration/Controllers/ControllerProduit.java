@@ -1,7 +1,5 @@
 package com.nextgeneration.Controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +19,6 @@ public class ControllerProduit {
 	
 	@Autowired
     ProduitService produitService;
-    Produit produit;
-
     
     @GetMapping("/")
     public Iterable<Produit> getProduits() {
@@ -66,5 +62,7 @@ public class ControllerProduit {
     		return null;
     	}
     }
+    
+
 
 }
