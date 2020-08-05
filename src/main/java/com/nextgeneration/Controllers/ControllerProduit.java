@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nextgeneration.Entites.Produit;
 import com.nextgeneration.Services.ProduitService;
+import com.nextgeneration.dtos.ResponseEntity;
 
 @RestController
 @RequestMapping("/produits")
@@ -19,47 +20,58 @@ public class ControllerProduit {
 	
 	@Autowired
     ProduitService produitService;
+	ResponseEntity responseEntity;
     
     @GetMapping("/")
-    public Iterable<Produit> getProduits() {
-    	return produitService.getAllProduit();
+    public ResponseEntity getProduits() {
+    	responseEntity = new ResponseEntity();
+    	return responseEntity.setMessage(produitService.getAllProduit(),200);
     }
     
     @GetMapping("/{id}")
-    public Produit getProduit(@PathVariable("id") final int id ) {
-        return produitService.getProduitById(id);
+    public ResponseEntity getProduit(@PathVariable("id") final int id ) {
+    	responseEntity = new ResponseEntity();
+    	return responseEntity.setMessage(produitService.getProduitById(id),200);
     }
     
     @GetMapping("/name/{nom}")
-    public Produit getProduitByNom(@PathVariable("nom") final String nom ) {
-        return produitService.getProduitByNom(nom);
+    public ResponseEntity getProduitByNom(@PathVariable("nom") final String nom ) {
+    	responseEntity = new ResponseEntity();
+    	return responseEntity.setMessage(produitService.getProduitByNom(nom),200);
     }
     
     @GetMapping("/type/{type}")
-    public Iterable<Produit> getProduitByType(@PathVariable("type") final String type ) {
-        return produitService.getProduitByType(type);
+    public ResponseEntity getProduitByType(@PathVariable("type") final String type ) {
+    	responseEntity = new ResponseEntity();
+    	return responseEntity.setMessage(produitService.getProduitByType(type),200);
     }
     
     @PostMapping("")
-    public Produit createProduit(@RequestBody Produit produit) {
+    public ResponseEntity createProduit(@RequestBody Produit produit) {
     	try {
-    		return produitService.saveProduit(produit);
+    		responseEntity = new ResponseEntity();
+        	return responseEntity.setMessage(produitService.saveProduit(produit),200);
     	}catch(Exception e) {
-    		return null;
+    		responseEntity = new ResponseEntity();
+        	return responseEntity.setErrorMessage(e.getMessage(), 403);
     	}
     }
     
     @DeleteMapping("/{id}")
-    public void deleteProduit(@PathVariable("id") final int id ) {
-        produitService.deleteProduitById(id);
+    public ResponseEntity deleteProduit(@PathVariable("id") final int id ) {
+    	responseEntity = new ResponseEntity();
+    	produitService.deleteProduitById(id);
+    	return responseEntity.setMessage("deleted successful:",200);
     }
     
     @PutMapping("/{id}")
-    public Produit updateProduit(@PathVariable("id") final int id, @RequestBody Produit produit) {
+    public ResponseEntity updateProduit(@PathVariable("id") final int id, @RequestBody Produit produit) {
     	try{
-    		return produitService.updateProduit(id, produit);
+    		responseEntity = new ResponseEntity();
+        	return responseEntity.setMessage(produitService.updateProduit(id, produit),200);
     	}catch(Exception e) {
-    		return null;
+    		responseEntity = new ResponseEntity();
+        	return responseEntity.setErrorMessage("update unsuccessful", 403);
     	}
     }
     

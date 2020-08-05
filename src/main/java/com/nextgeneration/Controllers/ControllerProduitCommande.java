@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nextgeneration.Entites.Produit;
-import com.nextgeneration.Entites.ResponseEntity;
 import com.nextgeneration.Services.ProduitCommandeService;
 import com.nextgeneration.dtos.CommandeProduitDTO;
+import com.nextgeneration.dtos.ResponseEntity;
 
 @RestController
 @RequestMapping("/produits")

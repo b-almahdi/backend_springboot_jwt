@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nextgeneration.Entites.ResponseEntity;
 import com.nextgeneration.Services.FactureCommandeService;
 import com.nextgeneration.dtos.CommandeFactureDTO;
+import com.nextgeneration.dtos.ResponseEntity;
 
 @RestController
 @RequestMapping("/factures")

@@ -1,4 +1,4 @@
-package com.nextgeneration.Entites;
+package com.nextgeneration.dtos;
 
 import lombok.Data;
 

@@ -33,7 +33,7 @@ public class LivraisonService {
 	
 	public void updateLivraison(int id,Livraison livraison) {
 		Livraison livraison1 = livraisonRepository.findById(id).get();
-		livraison1.setDateReception(livraison.getDateReception());
+		livraison1.setAdresse(livraison.getAdresse());
 		livraisonRepository.save(livraison1);
 	}
 }

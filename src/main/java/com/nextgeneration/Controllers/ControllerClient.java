@@ -1,8 +1,5 @@
 package com.nextgeneration.Controllers;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nextgeneration.Entites.Client;
-import com.nextgeneration.Entites.ResponseEntity;
 import com.nextgeneration.Services.ClientService;
+import com.nextgeneration.dtos.ResponseEntity;
 
 @RestController
 @RequestMapping("/clients")
@@ -30,11 +27,7 @@ public class ControllerClient {
     @GetMapping("/")
     public ResponseEntity getClients() {
     	responseEntity = new ResponseEntity();
-    	Collection<Client> clients = new ArrayList<>();
-    	for(Client c : clientService.getAllClient()) {
-    		clients.add(c);
-    	}
-    	return responseEntity.setMessage(clients, 200);
+    	return responseEntity.setMessage(clientService.getAllClient(), 200);
     }
     
     @GetMapping("/{id}")
@@ -48,7 +41,7 @@ public class ControllerClient {
     		responseEntity = new ResponseEntity();
     		return responseEntity.setMessage(clientService.saveClient(client),200);
     	}catch(Exception e) {
-    		return responseEntity.setErrorMessage("Invalid save", 403);
+    		return responseEntity.setErrorMessage(e.getMessage(), 403);
     	}
     	
     }

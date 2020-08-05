@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nextgeneration.Entites.Client;
 import com.nextgeneration.Entites.Commande;
-import com.nextgeneration.Entites.ResponseEntity;
 import com.nextgeneration.Services.CommandeService;
+import com.nextgeneration.dtos.ResponseEntity;
 
 @RestController
 @RequestMapping("/commandes")
@@ -28,8 +28,9 @@ public class ControllerCommande {
 
     
     @GetMapping("/")
-    public Iterable<Commande> getCommandes() {
-    	return commandeService.getAllCommande();
+    public ResponseEntity getCommandes() {
+    	responseEntity = new ResponseEntity();
+    	return responseEntity.setMessage(commandeService.getAllCommande(),200);
     }
     
     @GetMapping("/{id}/produits")
@@ -43,8 +44,8 @@ public class ControllerCommande {
     }
     
     @GetMapping("/{id}")
-    public Commande getCommande(@PathVariable("id") final int id ) {
-        return commandeService.getCommandeById(id);
+    public ResponseEntity getCommande(@PathVariable("id") final int id ) {
+        return responseEntity.setMessage(commandeService.getCommandeById(id),200);
     }
     
     @PostMapping("/")

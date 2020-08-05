@@ -16,31 +16,26 @@ public class LivraisonCommandeService {
 	LivraisonRepository livraisonRepository;
 	@Autowired
 	CommandeRepository commandeRepository;
-	
+
 	Commande commande;
 	Livraison livraison;
 
 	public Object generateLivraisonForCommande(CommandeLivraisonDTO commandeLivraisonDTO) {
-<<<<<<< HEAD
 
-		return null;
-=======
-/*	commande = commandeRepository.findById(CommandeLivraisonDTO.getIdCommande())
-				 .orElseThrow(() -> 
-				 new Error("Livraison Failed !"));
-		if(commande.getLivraison() != null) {
-				throw new Error("Livraison Failed !");
-			}
+		commande = commandeRepository.findById(commandeLivraisonDTO.getIdCommande())
+				.orElseThrow(() -> new Error("Livraison Failed !"));
+		if (commande.getLivraison() != null) {
+			throw new Error("Livraison Failed !");
+		}
+		if (commande.getFacture() == null) {
+			throw new Error("Facture not created!");
+		}
 
-		 	livraison = new Livraison();
-		 	livraison.setAdresse(CommandeLivraisonDTO.getAdresse());
-		 	livraison.setDateReception(CommandeLivraisonDTO.getDateReception());
-		 	livraisonRepository.save(livraison);
-			commande.setLivraison(livraison);*/
-           return commandeRepository.save(commande);
->>>>>>> branch 'master' of https://github.com/bahaa-eddine/backend_springboot_jwt.git
+		livraison = new Livraison();
+		livraison.setAdresse(commandeLivraisonDTO.getAdresse());
+		livraisonRepository.save(livraison);
+		commande.setLivraison(livraison);
+		return commandeRepository.save(commande);
 	}
-	
-	
 
 }

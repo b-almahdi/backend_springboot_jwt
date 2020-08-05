@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -24,8 +23,6 @@ public class Commande {
 	private int id;
     @Column
 	private Date dateCommande;
-    @ManyToOne
-    private Client client;
     @OneToMany(cascade = {CascadeType.ALL})
     private List<CommandeProduit> produits;
     @OneToOne

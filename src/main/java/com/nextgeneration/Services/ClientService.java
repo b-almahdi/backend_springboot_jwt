@@ -19,7 +19,11 @@ public class ClientService {
 	}
 	
 	public void deleteClientById(int id) {
-		clientRepository.deleteById(id);
+		try {
+			clientRepository.deleteById(id);			
+		} catch (Exception e) {
+			throw new Error("delete unsuccessful!");
+		}
 	}
 	
 	public Iterable<Client> getAllClient(){
@@ -27,17 +31,25 @@ public class ClientService {
 	}
 	
 	public Client getClientById(int id) {
-		Optional<Client> client = clientRepository.findById(id);
-		return client.get();
+		try {			
+			Optional<Client> client = clientRepository.findById(id);
+			return client.get();
+		} catch (Exception e) {
+			throw new Error("Invalid save");
+		}
 	}
 	
 	public Client updateClient(int id,Client client) {
-		Client client1 = clientRepository.findById(id).get();
-		client1.setNom(client.getNom());
-		client1.setPrenom(client.getPrenom());
-		client1.setAdresse(client.getAdresse());
-		client1.setTelephone(client.getTelephone());
-		return clientRepository.save(client1);
+		try {			
+			Client client1 = clientRepository.findById(id).get();
+			client1.setNom(client.getNom());
+			client1.setPrenom(client.getPrenom());
+			client1.setAdresse(client.getAdresse());
+			client1.setTelephone(client.getTelephone());
+			return clientRepository.save(client1);
+		} catch (Exception e) {
+			throw new Error("update unsuccessful!");
+		}
 	}
 	
 	

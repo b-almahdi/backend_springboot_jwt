@@ -1,7 +1,5 @@
 package com.nextgeneration.Services;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +29,7 @@ public class FactureCommandeService {
 				throw new Error("Facture Generation Failed !");
 			}
 		 commande.getProduits().forEach( (produit) ->{
-				montant = montant + (produit.getProduit().getPrix()*produit.getQuantite());
+				montant =+ produit.getProduit().getPrix()*produit.getQuantite();
 				});
 		 	facture = new Facture();
 			facture.setMontant(montant);
