@@ -17,8 +17,5 @@ public class Facture {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
     @Column
-	private double montant;
-    @OneToOne
-    private Commande commande;
-    
+	private double montant;    
 }
