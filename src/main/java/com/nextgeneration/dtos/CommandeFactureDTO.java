@@ -3,7 +3,7 @@ package com.nextgeneration.dtos;
 import lombok.Data;
 
 @Data
-public class CommandeFactureLivraisonDTO {
+public class CommandeFactureDTO {
 	
 	private int idCommande;
 

@@ -7,22 +7,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nextgeneration.Entites.ResponseEntity;
-import com.nextgeneration.Services.FactureCommandeService;
-import com.nextgeneration.dtos.CommandeFactureDTO;
+import com.nextgeneration.Services.LivraisonCommandeService;
+import com.nextgeneration.dtos.CommandeLivraisonDTO;
 
 @RestController
-@RequestMapping("/factures")
-public class ControllerFactureCommande {
+@RequestMapping("/livraisons")
+public class ControllerLivraisonCommande {
 	
 	@Autowired
-	private FactureCommandeService factureCommandeService;
+	private LivraisonCommandeService livraisonCommandeService;
 	ResponseEntity responseEntity;
 	
 	@PostMapping("/commandes")
-	public ResponseEntity generateFactureForCommande(@RequestBody CommandeFactureDTO commandeFactureDTO) {
+	public ResponseEntity generateFactureForCommande(@RequestBody CommandeLivraisonDTO commandeLivraisonDTO) {
     	responseEntity = new ResponseEntity();
     	try{
-    		return responseEntity.setMessage(factureCommandeService.generateFactureForCommande(commandeFactureDTO), 200);
+    		return responseEntity.setMessage(livraisonCommandeService.generateLivraisonForCommande(commandeLivraisonDTO), 200);
     	}catch(Exception e) {
     		return responseEntity.setErrorMessage(e.getMessage(),403);
     	}
