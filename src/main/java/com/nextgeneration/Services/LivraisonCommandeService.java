@@ -29,9 +29,10 @@ public class LivraisonCommandeService {
 			}
 
 		 	livraison = new Livraison();
-		 	livraison.setAddress(CommandeLivraisonDTO.getAdresse());
+		 	livraison.setAdresse(CommandeLivraisonDTO.getAdresse());
+		 	livraison.setDateReception(CommandeLivraisonDTO.getDateReception());
 		 	livraisonRepository.save(livraison);
-			commande.setFacture(facture);
+			commande.setLivraison(livraison);
            return commandeRepository.save(commande);
 	}
 	
