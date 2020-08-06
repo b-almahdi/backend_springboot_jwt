@@ -1,5 +1,7 @@
 package com.nextgeneration.Services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import com.nextgeneration.Entites.Produit;
 import com.nextgeneration.Repositories.CommandeRepository;
 import com.nextgeneration.Repositories.ProduitRepository;
 import com.nextgeneration.dtos.CommandeProduitDTO;
+import com.nextgeneration.dtos.ProduitQuantiteDTO;
 
 @Service
 public class ProduitCommandeService {
@@ -21,19 +24,32 @@ public class ProduitCommandeService {
 
 	CommandeProduit commandeProduit;
 	Produit produit;
-	
+	List<CommandeProduit> commandeProduits = new ArrayList<>();
+	List<Produit> produits = new ArrayList<>();
+ 	
 	public Optional<Object> addProduitToCommande(CommandeProduitDTO commandeProduitDTO) {
-		commandeProduit = new CommandeProduit();
+		
 		return commandeRepository.findById(commandeProduitDTO.getIdCommande()).map(commande -> {
-			produit = produitRepository.findById(commandeProduitDTO.getIdProduit()).get();
-			if(produit.getQuantite()<commandeProduitDTO.getQuantite()) {
-				throw new Error("Out of stock");
+			
+			for(ProduitQuantiteDTO produitQuantiteDTO: commandeProduitDTO.getProduits()) {
+				produit = produitRepository.findById(produitQuantiteDTO.getProduitId()).get();
+				if(produit.getQuantite()<produitQuantiteDTO.getQuantite()) {
+					throw new Error("Out of stock");
+				}
+				
+				commandeProduit = new CommandeProduit();
+				commandeProduit.setProduit(produit);
+				commandeProduit.setQuantite(produitQuantiteDTO.getQuantite());
+				commandeProduits.add(commandeProduit);
+				
+	            produit.setQuantite(produit.getQuantite()-produitQuantiteDTO.getQuantite());
+				produits.add(produit);
 			}
-			commandeProduit.setProduit(produit);
-			commandeProduit.setQuantite(commandeProduitDTO.getQuantite());
-            commande.getProduits().add(commandeProduit);
-            produit.setQuantite(produit.getQuantite()-commandeProduitDTO.getQuantite());
-            produitRepository.save(produit);
+//			commandeProduit.setProduit(produit);
+//			commandeProduit.setQuantite(commandeProduitDTO.getQuantite());
+            commande.getProduits().addAll(commandeProduits);
+//          produit.setQuantite(produit.getQuantite()-commandeProduitDTO.getQuantite());
+            produitRepository.saveAll(produits);
             return commandeRepository.save(commande);
         });
 	}
