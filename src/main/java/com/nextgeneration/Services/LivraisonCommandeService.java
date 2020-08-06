@@ -21,7 +21,11 @@ public class LivraisonCommandeService {
 	Livraison livraison;
 
 	public Object generateLivraisonForCommande(CommandeLivraisonDTO commandeLivraisonDTO) {
+<<<<<<< HEAD
 		commande = commandeRepository.findById(CommandeLivraisonDTO.getIdCommande())
+=======
+/*	commande = commandeRepository.findById(CommandeLivraisonDTO.getIdCommande())
+>>>>>>> 5a31153cc70629db314db809594384d4f3d04a7c
 				 .orElseThrow(() -> 
 				 new Error("Livraison Failed !"));
 		if(commande.getLivraison() != null) {
@@ -29,9 +33,16 @@ public class LivraisonCommandeService {
 			}
 
 		 	livraison = new Livraison();
+<<<<<<< HEAD
 		 	livraison.setAddress(CommandeLivraisonDTO.getAdresse());
 		 	livraisonRepository.save(livraison);
 			commande.setFacture(facture);
+=======
+		 	livraison.setAdresse(CommandeLivraisonDTO.getAdresse());
+		 	livraison.setDateReception(CommandeLivraisonDTO.getDateReception());
+		 	livraisonRepository.save(livraison);
+			commande.setLivraison(livraison);*/
+>>>>>>> 5a31153cc70629db314db809594384d4f3d04a7c
            return commandeRepository.save(commande);
 	}
 	

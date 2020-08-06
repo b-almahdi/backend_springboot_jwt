@@ -1,37 +1,45 @@
 package com.nextgeneration.Services;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nextgeneration.Entites.Commande;
 import com.nextgeneration.Entites.Facture;
+import com.nextgeneration.Entites.Produit;
 import com.nextgeneration.Repositories.CommandeRepository;
 import com.nextgeneration.Repositories.FactureRepository;
-import com.nextgeneration.dtos.CommandeFactureLivraisonDTO;
+import com.nextgeneration.dtos.CommandeFactureDTO;
 
 @Service
 public class FactureCommandeService {
-
 	@Autowired
-	FactureRepository factureepository;
+	FactureRepository factureRepository;
 	@Autowired
 	CommandeRepository commandeRepository;
-		Facture facture;
-		Commande commande;
-	public Object generateFactureForCommande(CommandeFactureLivraisonDTO commandeFactureLivraisonDTO) {
-		commandeRepository.findById(CommandeFactureLivraisonDTO.getIdCommande()).map(commande -> {
-			if(produit.getQuantite()<commandeProduitDTO.getQuantite()) {
-				throw new Error("Out of stock");
+	
+	Commande commande;
+	Facture facture;
+	Produit produit;
+	private double montant ;
+	public Object generateFactureForCommande(CommandeFactureDTO commandeFactureDTO) {
+		 commande = commandeRepository.findById(commandeFactureDTO.getIdCommande())
+				 .orElseThrow(() -> 
+				 new Error("Facture Generation Failed !"));
+		if(commande.getFacture() != null) {
+				throw new Error("Facture Generation Failed !");
 			}
-			commandeProduit.setProduit(produit);
-			commandeProduit.setQuantite(commandeProduitDTO.getQuantite());
-            commande.getProduits().add(commandeProduit);
-            produit.setQuantite(produit.getQuantite()-commandeProduitDTO.getQuantite());
-            produitRepository.save(produit);
+		 commande.getProduits().forEach( (produit) ->{
+				montant = montant + (produit.getProduit().getPrix()*produit.getQuantite());
+				});
+		 	facture = new Facture();
+			facture.setMontant(montant);
+			factureRepository.save(facture);
+			commande.setFacture(facture);
             return commandeRepository.save(commande);
 
 	}
-	
 	
 
 }
