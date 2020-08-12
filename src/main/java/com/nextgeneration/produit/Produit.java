@@ -26,5 +26,7 @@ public class Produit {
 	private double prix;
     @Column
 	private String type;
+    @Column
+    private String imageUrl;
     
 }

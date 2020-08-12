@@ -1,5 +1,6 @@
 package com.nextgeneration.produit;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,8 @@ public class ProduitService {
 		return produitRepository.save(produit1);
 	}
 
-	public Produit getProduitByNom(String nom) {
-		return produitRepository.findByNom(nom);
+	public Iterable<Produit> getProduitByNom(String nom) {
+		return produitRepository.findByNomIgnoreCaseContaining(nom);
 	}
 
 	public Iterable<Produit> getProduitByType(String type) {
