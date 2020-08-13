@@ -45,5 +45,13 @@ public class ProduitService {
 	public Iterable<Produit> getProduitByType(String type) {
 		return produitRepository.findByType(type);
 	}
+	public Iterable<Produit> getProduitByPriceAsc() {
+		return produitRepository.findByOrderByPrixAsc();
+	}
+	
+	public Iterable<Produit> getProduitByPriceDesc() {
+		return produitRepository.findByOrderByPrixDesc();
+	}
+	
 
 }

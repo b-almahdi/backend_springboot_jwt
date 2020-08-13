@@ -34,17 +34,33 @@ public class ControllerProduit {
     	responseEntity = new ResponseEntity();
     	return responseEntity.setMessage(produitService.getProduitById(id),200);
     }
-    
+    /*
     @GetMapping("")
-    public ResponseEntity getProduitByNom(@RequestParam("nom") final String nom ) {
+    public ResponseEntity getProduitByNom(@RequestParam(required = false) final String nom ) {
     	responseEntity = new ResponseEntity();
     	return responseEntity.setMessage(produitService.getProduitByNom(nom),200);
+    }*/
+    
+    @GetMapping("")
+    public ResponseEntity getProduitByPrix (@RequestParam("sort") String sort) {
+    	responseEntity = new ResponseEntity();
+    	if(sort.toUpperCase()=="ASC") {
+    	return  responseEntity.setMessage(produitService.getProduitByPriceAsc(),200);
+    	}
+    	else if (sort.toUpperCase()=="DESC") {
+    	return responseEntity.setMessage(produitService.getProduitByPriceDesc(),200);
+    	}
+    	else {
+    		return responseEntity.setMessage(produitService.getAllProduit(),200);
+    	}
+    	
     }
+
     
     @GetMapping("/type/{type}")
     public ResponseEntity getProduitByType(@PathVariable("type") final String type ) {
     	responseEntity = new ResponseEntity();
-    	return responseEntity.setMessage(produitService.getProduitByType(type),200);
+    	return responseEntity.setMessage(produitService.getProduitByType(type),200 );
     }
     
     @PostMapping("")

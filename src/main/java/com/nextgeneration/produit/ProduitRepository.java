@@ -10,4 +10,6 @@ public interface ProduitRepository extends JpaRepository<Produit, Integer>,Query
 	Iterable<Produit> findByType(String type);
 	Iterable<Produit> findByNomIgnoreCaseContaining(String nom);
 	Iterable<Produit> findByNom(String nom);
+	Iterable<Produit> findByOrderByPrixAsc();
+	Iterable<Produit> findByOrderByPrixDesc();
 }
