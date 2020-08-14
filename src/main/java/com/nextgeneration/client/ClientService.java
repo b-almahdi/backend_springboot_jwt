@@ -3,16 +3,30 @@ package com.nextgeneration.client;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.nextgeneration.exceptions.UsernameAlreadyExistsException;
 
 @Service
 public class ClientService {
 
 	@Autowired
     private ClientRepository clientRepository;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	
 	public Client saveClient(Client client) {
-		return clientRepository.save(client);
+		try {
+			client.setPassword(passwordEncoder.encode(client.getPassword()));
+			return clientRepository.save(client);
+		}catch (Exception e) {
+            throw new UsernameAlreadyExistsException("Username '"+client.getUsername()+"' already exists");
+
+		}
+		
+
 	}
 	
 	public void deleteClientById(int id) {

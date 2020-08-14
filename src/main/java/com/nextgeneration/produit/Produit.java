@@ -26,7 +26,11 @@ public class Produit {
     @Column
 	private int quantite;
     @Column
+    private String description;
+    @Column
 	private double prix;
+    @Column
+	private String taille;
     @Column
 	private String type;
     @Column

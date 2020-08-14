@@ -1,6 +1,12 @@
 package com.nextgeneration.client;
 
+import static com.nextgeneration.Security.SecurityConstants.TOKEN_PREFIX;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nextgeneration.Security.JwtTokenProvider;
 import com.nextgeneration.globals.ResponseEntity;
+import com.nextgeneration.payload.JWTLoginSucessReponse;
+import com.nextgeneration.payload.LoginRequest;
+
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -24,6 +34,44 @@ public class ControllerClient {
     ResponseEntity responseEntity;
 
     
+    @Autowired
+    private JwtTokenProvider tokenProvider;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+
+    @PostMapping("/login")
+    public ResponseEntity authenticateUser( @RequestBody LoginRequest loginRequest){
+    	
+    	try {
+    		Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginRequest.getUsername(),
+                            loginRequest.getPassword()
+                    )
+            );
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = TOKEN_PREFIX +  tokenProvider.generateToken(authentication);
+            return responseEntity.setMessage(new JWTLoginSucessReponse(true, jwt),200);
+		} catch (Exception e) {
+			return responseEntity.setErrorMessage(e.getMessage(), 403);		}
+
+    }
+    
+    
+    @PostMapping("/signup")
+    public ResponseEntity createClient(@RequestBody Client client) {
+    	try{
+    		responseEntity = new ResponseEntity();
+    		return responseEntity.setMessage(clientService.saveClient(client),200);
+    	}catch(Exception e) {
+    		return responseEntity.setErrorMessage(e.getMessage(), 403);
+    	}
+    	
+    }
+    
     @GetMapping("/")
     public ResponseEntity getClients() {
     	responseEntity = new ResponseEntity();
@@ -35,16 +83,6 @@ public class ControllerClient {
         return responseEntity.setMessage(clientService.getClientById(id),200);
     }
     
-    @PostMapping("/")
-    public ResponseEntity createClient(@RequestBody Client client) {
-    	try{
-    		responseEntity = new ResponseEntity();
-    		return responseEntity.setMessage(clientService.saveClient(client),200);
-    	}catch(Exception e) {
-    		return responseEntity.setErrorMessage(e.getMessage(), 403);
-    	}
-    	
-    }
     
     @DeleteMapping("/{id}")
     public ResponseEntity deleteClient(@PathVariable("id") final int id ) {
