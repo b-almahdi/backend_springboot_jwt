@@ -76,9 +76,14 @@ public class ControllerProduit {
     
     @DeleteMapping("/{id}")
     public ResponseEntity deleteProduit(@PathVariable("id") final int id ) {
+    	try {
     	responseEntity = new ResponseEntity();
     	produitService.deleteProduitById(id);
     	return responseEntity.setMessage("deleted successful:",200);
+	}catch(Exception e) {
+		responseEntity = new ResponseEntity();
+    	return responseEntity.setErrorMessage(e.getMessage(), 403);
+	}
     }
     
     @PutMapping("/{id}")

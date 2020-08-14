@@ -32,7 +32,6 @@ public class Client /*extends Auditable<String>*/ {
     @Column(unique = true)
     private String username;
     @JsonIgnore
-    @NotBlank(message = "Password field is required")
     private String password;
     @Column
 	private String nom;
