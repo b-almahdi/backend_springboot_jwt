@@ -15,7 +15,7 @@ public class JpaAuditingConfiguration {
 
     @Bean
     public AuditorAware<String> auditorProvider() {
-        return () -> Optional.ofNullable("Bahaa Eddine");
+        return () -> Optional.ofNullable("User");
     }
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {

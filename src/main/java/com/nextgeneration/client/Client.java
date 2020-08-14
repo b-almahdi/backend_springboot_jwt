@@ -21,7 +21,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Client /*extends Auditable<String>*/ {
+public class Client  {
 	
 
     @Id
@@ -31,10 +31,11 @@ public class Client /*extends Auditable<String>*/ {
     @NotBlank(message = "username is required")
     @Column(unique = true)
     private String username;
-    @JsonIgnore
+    @NotBlank(message = "password is required")
     private String password;
     @Column
 	private String nom;
+    @NotBlank
     @Column
 	private String prenom;
     @Column
