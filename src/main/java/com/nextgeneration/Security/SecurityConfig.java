@@ -64,11 +64,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.html",
                         "/**/*.css",
                         "/**/*.js"
-                ).permitAll();
-                //.antMatchers("/clients/**").permitAll()
-                //.antMatchers("/produits/").permitAll()
-                //.anyRequest().authenticated();
+                ).permitAll()
+                .antMatchers("/clients/**").permitAll()
+                .antMatchers("/produits/").permitAll()
+                .anyRequest().authenticated();
 
-       // http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

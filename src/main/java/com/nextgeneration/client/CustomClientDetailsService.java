@@ -16,8 +16,12 @@ public class CustomClientDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Client client = clientRepository.findByUsername(username);
-        if(client==null) new UsernameNotFoundException("User not found");
+        if(client==null) { 
+        	throw new UsernameNotFoundException("User not found");
+        }
+        else {
         return client;
+        }
     }
 
 

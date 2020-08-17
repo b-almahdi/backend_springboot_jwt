@@ -22,8 +22,8 @@ public class ClientService {
 			client.setPassword(passwordEncoder.encode(client.getPassword()));
 			return clientRepository.save(client);
 		}catch (Exception e) {
-            throw new UsernameAlreadyExistsException("Username '"+client.getUsername()+"' already exists");
-
+			System.out.println(e);
+			throw new UsernameAlreadyExistsException("Username '"+client.getUsername()+"' already exists");
 		}
 		
 

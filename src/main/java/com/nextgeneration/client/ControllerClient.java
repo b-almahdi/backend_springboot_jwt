@@ -43,7 +43,7 @@ public class ControllerClient {
 
     @PostMapping("/login")
     public ResponseEntity authenticateUser( @RequestBody LoginRequest loginRequest){
-    	
+    	ResponseEntity responseEntity = new ResponseEntity();
     	try {
     		Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -56,6 +56,7 @@ public class ControllerClient {
             String jwt = TOKEN_PREFIX +  tokenProvider.generateToken(authentication);
             return responseEntity.setMessage(new JWTLoginSucessReponse(true, jwt),200);
 		} catch (Exception e) {
+			
 			return responseEntity.setErrorMessage(e.getMessage(), 403);		}
 
     }
